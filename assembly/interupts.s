@@ -11,3 +11,4 @@ load_idt:
     mov 4(%esp), %eax   /* Get the pointer to the idt_ptr struct from the C argument. The eax register is defined as the first argument */
     lidt (%eax)         /* Load the IDT into the CPU register */
     ret
+    
