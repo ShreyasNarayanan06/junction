@@ -12,10 +12,12 @@ OBJ = boot.o \
       ../src/kernel.o \
       ../src/cpu/idt.o \
       ../src/cpu/pic.o \
-      ../src/cpu/PMM.o \
+      ../src/memory/PMM.o \
+      ../src/memory/VMM.o \
       ../src/driver/keyboard.o \
       ../src/driver/terminal.o \
-      ../assembly/interupts.o
+      ../assembly/interupts.o \
+      ../assembly/vmem.o
 
 # Final Binary
 os.bin: $(OBJ)
@@ -30,7 +32,7 @@ boot.o: boot.s
 	$(AS) $< -o $@
 
 # Compile Assembly Wrappers
-../assembly/interupts.o: ../assembly/interupts.s
+../assembly/%.o: ../assembly/%.s
 	$(AS) $< -o $@
 
 # Run OS in QEMU
@@ -43,5 +45,6 @@ clean:
 	rm -f *.o
 	rm -f ../src/*.o
 	rm -f ../src/cpu/*.o
+	rm -f ../src/memory/*.o
 	rm -f ../src/driver/*.o
 	rm -f ../assembly/*.o
