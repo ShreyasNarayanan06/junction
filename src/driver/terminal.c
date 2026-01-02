@@ -82,6 +82,11 @@ void terminal_putentryat(char c, uint8_t color, size_t x, size_t y) { //puts a c
 }
 
 void terminal_putchar(char c) { //puts a character at the current location
+	if (c == '\n') {
+        terminal_enter();
+        return;
+    }
+
 	terminal_putentryat(c, t_color, t_col, t_row);
 	if (++t_col == VGA_WIDTH) {
 		t_col = 0;
@@ -100,6 +105,24 @@ void terminal_write(const char* data, size_t size) {
 
 void terminal_writestring(const char* data) {
     terminal_write(data, strlen(data));
+}
+
+void terminal_writenumber(uint32_t n) {
+    if (n == 0) {
+        terminal_putchar('0');
+        return;
+    }
+
+    char buf[11]; 
+    int i = 10;
+    buf[i] = '\0';
+
+    while (n > 0) {
+        buf[--i] = (n % 10) + '0';
+        n /= 10;
+    }
+
+    terminal_writestring(&buf[i]);
 }
 
 void terminal_removechar() {

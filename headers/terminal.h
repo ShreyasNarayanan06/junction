@@ -17,3 +17,5 @@ void terminal_arrow_right();
 void terminal_arrow_left();
 void terminal_arrow_up();
 void terminal_arrow_down();
+void terminal_writenumber(uint32_t n);
+

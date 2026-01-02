@@ -4,7 +4,6 @@ AS = i686-elf-as
 LD = i686-elf-gcc
 
 # Flags
-# -I../headers tells the compiler to look in the headers folder for .h files
 CFLAGS = -std=gnu99 -ffreestanding -O2 -Wall -Wextra -I../headers
 LDFLAGS = -ffreestanding -O2 -nostdlib -T linker.ld -lgcc
 
@@ -13,6 +12,7 @@ OBJ = boot.o \
       ../src/kernel.o \
       ../src/cpu/idt.o \
       ../src/cpu/pic.o \
+      ../src/cpu/PMM.o \
       ../src/driver/keyboard.o \
       ../src/driver/terminal.o \
       ../assembly/interupts.o
@@ -25,11 +25,11 @@ os.bin: $(OBJ)
 %.o: %.c
 	$(CC) -c $< -o $@ $(CFLAGS)
 
-# Compile Boot Assembly (in same folder)
+# Compile Boot Assembly
 boot.o: boot.s
 	$(AS) $< -o $@
 
-# Compile Assembly Wrappers (in assembly folder)
+# Compile Assembly Wrappers
 ../assembly/interupts.o: ../assembly/interupts.s
 	$(AS) $< -o $@
 
@@ -37,7 +37,7 @@ boot.o: boot.s
 run: os.bin
 	qemu-system-i386 -kernel os.bin
 
-# Remove all binaries and object files
+# Clean
 clean:
 	rm -f os.bin
 	rm -f *.o

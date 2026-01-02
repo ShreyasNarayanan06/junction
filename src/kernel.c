@@ -5,11 +5,18 @@
 #include "../headers/keyboard.h"
 #include "../headers/pic.h"
 #include "../headers/idt.h"
+#include "../headers/io.h"
+#include "../headers/PMM.h"
 
-void kernel_main(void) {
+void kernel_main(uint32_t mbptr) {
     terminal_initialize();
 	init_IDT();
 	pic_init();
+	PMM_init(mbptr);
+
+	// terminal_writestring("Number of pages: ");
+	// terminal_writenumber(num_pages);
+	// terminal_enter();
 
 	asm volatile ("sti");
 

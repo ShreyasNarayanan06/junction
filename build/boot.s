@@ -40,7 +40,8 @@ _start:
 	*/
 
     /* moves the stack top to the stack pointer, esp is defined in the x86-32 ABI as the stack pointer */
-    mov $stack_top, %esp 
+    mov $stack_top, %esp
+	push %ebx
 
     call kernel_main /* calls the kernel_main function, call is from the x86-32 ABI, kernel_main is a symbol */
 
@@ -48,4 +49,4 @@ _start:
 1:  hlt /* hlt halts the processor */
     jmp 1b /* jmp jumps to the label 1, this creates an infinite loop */
  
-.size _start, . - _start /* sets the size of the _start section to the size of the _start section */
+.size _start, . - _start /* sets the size of the _start section to the size of the _start section *
