@@ -10,6 +10,7 @@ TestOS is a hobbyist operating system targeting the x86 (i686) architecture. It 
 
 - **Multiboot Compliant** – Boots with GRUB or directly via QEMU's `-kernel` flag
 - **VGA Text Mode Terminal** – 80x25 character display with cursor support and multiple colors
+- **Interactive Command Shell** – Built-in shell with command parsing and argument support
 - **Keyboard Driver** – Full PS/2 keyboard input with shift/caps lock support
 - **Interrupt Handling** – IDT setup with PIC remapping for hardware interrupts
 - **Physical Memory Manager (PMM)** – Bitmap-based page allocator using Multiboot memory maps
@@ -31,13 +32,14 @@ testos/
 │   │   └── pic.c           # Programmable Interrupt Controller initialization
 │   ├── driver/
 │   │   ├── terminal.c      # VGA text mode driver
-│   │   └── keyboard.c      # PS/2 keyboard driver
+│   │   ├── keyboard.c      # PS/2 keyboard driver
+│   │   └── commands.c      # Shell command parser and handlers
 │   └── memory/
 │       ├── PMM.c           # Physical memory manager (bitmap allocator)
 │       └── VMM.c           # Virtual memory manager (paging, heap)
 ├── headers/                # Header files
 │   ├── idt.h, pic.h        # CPU headers
-│   ├── terminal.h, keyboard.h, io.h  # Driver headers
+│   ├── terminal.h, keyboard.h, io.h, commands.h  # Driver headers
 │   └── PMM.h, VMM.h        # Memory management headers
 └── assembly/               # Low-level assembly routines
     ├── interupts.s         # IRQ handler wrapper, IDT loading
@@ -95,13 +97,25 @@ qemu-system-i386 -kernel build/os.bin
 | Heap | 0xD0000000 - 0xE0000000 | Kernel heap (demand-paged) |
 | Recursive PD | 0xFFFFF000 | Self-mapped page directory |
 
+## Shell Commands
+
+TestOS includes an interactive command shell with the following built-in commands:
+
+| Command | Description |
+|---------|-------------|
+| `help` | Display list of available commands |
+| `clear` | Clear the terminal screen |
+| `echo <text>` | Print the provided text to the terminal |
+| `info` | Display OS version and author information |
+| `usr` | Display current user |
+
 ## Keyboard Shortcuts
 
 | Key | Action |
 |-----|--------|
-| Arrow keys | Move cursor |
+| Arrow Left/Right | Move cursor |
 | Backspace | Delete character |
-| Enter | New line |
+| Enter | Execute command |
 | Escape | Reboot system |
 
 ## Cleaning
