@@ -1,7 +1,7 @@
 #include <stdint.h>
-#include "../../headers/io.h"
-#include "../../headers/terminal.h"
-#include "../../headers/PMM.h"
+#include "../../../headers/io.h"
+#include "../../../headers/terminal.h"
+#include "../../../headers/PMM.h"
 
 uint32_t map_length = 0;
 uint32_t map_addr = 0;

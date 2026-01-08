@@ -1,6 +1,6 @@
-#include "../../headers/terminal.h"
-#include "../../headers/PMM.h"
-#include "../../headers/VMM.h"
+#include "../../../headers/terminal.h"
+#include "../../../headers/PMM.h"
+#include "../../../headers/VMM.h"
 #include <stdint.h>
 
 extern void set_page_directory(uint32_t);
