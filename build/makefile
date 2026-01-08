@@ -16,6 +16,7 @@ OBJ = boot.o \
       ../src/memory/manual_management/VMM.o \
       ../src/driver/keyboard.o \
       ../src/driver/terminal.o \
+	  ../src/driver/commands.o \
       ../assembly/interupts.o \
       ../assembly/VMM.o
 
